@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charlène · Massage & Bien-être</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Raleway:wght@200;300;400;500&display=swap');
+
+:root {
+  --ivoire: #fdf7ef;
+  --ivoire-deep: #f5ecdc;
+  --brun: #2c1a08;
+  --brun-mid: #5a3d1e;
+  --or: #c8a060;
+  --or-light: #e8c880;
+  --or-pale: #f4dfa8;
+  --caramel: #b88a5a;
+  --text: #3e2a14;
+  --muted: #8a7260;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--ivoire);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ivoire-deep); }
+::-webkit-scrollbar-thumb { background: var(--or); border-radius: 2px; }
+
+/* ══════════════════════════════
+   NAV
+══════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 18px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(253,247,239,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid rgba(200,160,96,.3);
+  transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: 0 2px 24px rgba(80,45,10,.08); }
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 400;
+  color: var(--brun);
+  letter-spacing: .06em;
+  text-decoration: none;
+}
+.nav-logo span {
+  font-style: italic; font-weight: 300;
+  font-size: 13px; color: var(--caramel);
+  display: block; letter-spacing: .2em;
+  text-transform: uppercase; margin-top: -4px;
+}
+
+.nav-links {
+  display: flex; gap: 32px; list-style: none;
+}
+.nav-links a {
+  font-size: 10px; font-weight: 300;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 0.5px; background: var(--or);
+  transform: scaleX(0); transform-origin: right;
+  transition: transform .3s;
+}
+.nav-links a:hover { color: var(--brun); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.nav-cta {
+  font-size: 9.5px; font-weight: 400;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--brun); text-decoration: none;
+  padding: 9px 20px;
+  border: 0.6px solid var(--or);
+  border-radius: 2px;
+  transition: background .2s, color .2s;
+}
+.nav-cta:hover { background: var(--brun); color: var(--or-pale); }
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Colonne gauche sombre */
+.hero-left {
+  background: linear-gradient(160deg, #2c1a08 0%, #4a2e12 55%, #6a4020 100%);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  padding: 120px 64px 80px;
+  position: relative; overflow: hidden;
+}
+
+/* Lotus SVG en fond gauche */
+.hero-lotus-bg {
+  position: absolute; left: -60px; top: 50%;
+  transform: translateY(-50%);
+  width: 480px; height: 480px;
+  opacity: .07; pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: 9px; font-weight: 200;
+  letter-spacing: .38em; text-transform: uppercase;
+  color: rgba(240,210,150,.6);
+  margin-bottom: 20px;
+  animation: fadeUp .8s ease both;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 72px;
+  color: var(--or-pale); line-height: .92;
+  letter-spacing: .02em;
+  margin-bottom: 6px;
+  animation: fadeUp .8s .15s ease both;
+}
+
+.hero-title em {
+  display: block; font-style: italic;
+  font-size: 52px; color: rgba(240,210,150,.75);
+}
+
+.hero-sub {
+  font-size: 9px; font-weight: 200;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(200,160,96,.7);
+  margin-bottom: 40px;
+  animation: fadeUp .8s .28s ease both;
+}
+
+.hero-divider {
+  width: 40px; height: .6px;
+  background: linear-gradient(90deg, var(--or), transparent);
+  margin-bottom: 28px;
+  animation: fadeUp .8s .35s ease both;
+}
+
+.hero-slogan {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 20px; color: rgba(240,210,150,.8);
+  line-height: 1.5;
+  animation: fadeUp .8s .42s ease both;
+}
+
+.hero-btn {
+  display: inline-block; margin-top: 44px;
+  font-size: 9.5px; font-weight: 400;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--brun); background: var(--or-pale);
+  padding: 14px 32px; text-decoration: none;
+  border-radius: 2px;
+  transition: background .2s, letter-spacing .2s;
+  animation: fadeUp .8s .55s ease both;
+}
+.hero-btn:hover { background: var(--or-light); letter-spacing: .28em; }
+
+/* Colonne droite ivoire */
+.hero-right {
+  background: var(--ivoire);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 120px 64px 80px;
+  position: relative;
+  animation: fadeIn 1.2s .3s ease both;
+}
+
+/* Lotus décoratif héro droit */
+.hero-lotus-deco {
+  width: 300px; height: 300px;
+  animation: rotateSlow 60s linear infinite;
+  opacity: .85;
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.hero-badge {
+  position: absolute; bottom: 80px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--caramel); letter-spacing: .06em;
+  text-align: center;
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column;
+  align-items: center; gap: 6px;
+  font-size: 8px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted);
+  animation: bounce 2s infinite;
+}
+.scroll-hint::after {
+  content: '';
+  width: 1px; height: 28px;
+  background: linear-gradient(180deg, var(--or), transparent);
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ══════════════════════════════
+   SECTION : ABOUT
+══════════════════════════════ */
+.about {
+  padding: 120px 48px;
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 2px 1fr;
+  gap: 64px; align-items: center;
+}
+
+.about-divider-v {
+  background: linear-gradient(180deg, transparent, var(--or) 30%, var(--or) 70%, transparent);
+}
+
+.section-eyebrow {
+  font-size: 8.5px; font-weight: 300;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--caramel); margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: 42px;
+  color: var(--brun); line-height: 1.1;
+  margin-bottom: 24px;
+}
+.section-title em {
+  font-style: italic; font-weight: 300;
+  color: var(--caramel);
+}
+
+.about-text {
+  font-weight: 300; font-size: 14px;
+  line-height: 1.9; color: var(--muted);
+}
+
+.about-text p + p { margin-top: 16px; }
+
+.about-values {
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+.value-item {
+  display: flex; align-items: flex-start; gap: 16px;
+}
+
+.value-icon {
+  width: 32px; height: 32px; flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.value-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 400;
+  color: var(--brun); margin-bottom: 4px;
+}
+
+.value-desc {
+  font-size: 12px; font-weight: 300;
+  color: var(--muted); line-height: 1.7;
+}
+
+/* ══════════════════════════════
+   SECTION : PRESTATIONS
+══════════════════════════════ */
+.prestations {
+  background: var(--brun);
+  padding: 100px 48px;
+  position: relative; overflow: hidden;
+}
+
+.prestations-lotus-bg {
+  position: absolute; right: -80px; top: 50%;
+  transform: translateY(-50%);
+  width: 500px; height: 500px;
+  opacity: .04; pointer-events: none;
+}
+
+.prestations-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+
+.prestations .section-eyebrow { color: rgba(200,160,96,.6); }
+.prestations .section-title { color: var(--or-pale); }
+
+.cards-grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.prestation-card {
+  background: rgba(255,255,255,.04);
+  border: 0.5px solid rgba(200,160,96,.2);
+  padding: 36px 28px;
+  position: relative;
+  transition: background .3s;
+  cursor: default;
+}
+.prestation-card:hover {
+  background: rgba(200,160,96,.08);
+}
+.prestation-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--or), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.prestation-card:hover::before { opacity: 1; }
+
+.prestation-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300;
+  color: rgba(200,160,96,.15);
+  line-height: 1; margin-bottom: 12px;
+}
+
+.prestation-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 400;
+  color: var(--or-pale); margin-bottom: 8px;
+}
+
+.prestation-desc {
+  font-size: 12px; font-weight: 300;
+  color: rgba(200,160,96,.5);
+  line-height: 1.7; margin-bottom: 20px;
+}
+
+.prestation-price {
+  display: flex; align-items: baseline; gap: 4px;
+}
+.price-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; color: var(--or);
+}
+.price-unit {
+  font-size: 11px; font-weight: 300;
+  color: rgba(200,160,96,.6);
+  letter-spacing: .1em;
+}
+
+/* ══════════════════════════════
+   SECTION : HORAIRES & CONTACT
+══════════════════════════════ */
+.contact {
+  padding: 100px 48px;
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+
+.horaires-grid {
+  margin-top: 28px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.horaire-item {
+  padding: 20px;
+  border: 0.5px solid rgba(200,160,96,.25);
+  border-radius: 2px;
+}
+
+.horaire-day {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--caramel); margin-bottom: 6px;
+}
+
+.horaire-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; color: var(--brun);
+}
+
+.horaire-closed {
+  font-size: 11px; font-weight: 300;
+  color: var(--muted); font-style: italic;
+  margin-top: 4px;
+}
+
+.contact-info {
+  margin-top: 28px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.contact-row {
+  display: flex; align-items: center; gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid rgba(200,160,96,.15);
+}
+
+.contact-row:last-child { border-bottom: none; }
+
+.contact-icon-wrap {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border: 0.5px solid rgba(200,160,96,.35);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.contact-label {
+  font-size: 8px; font-weight: 300;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--caramel); margin-bottom: 3px;
+}
+
+.contact-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; color: var(--brun);
+}
+
+/* ══════════════════════════════
+   SECTION : CARTE CADEAU TEASER
+══════════════════════════════ */
+.gift-teaser {
+  background: linear-gradient(135deg, var(--ivoire-deep) 0%, #ede0cc 100%);
+  padding: 80px 48px;
+  text-align: center;
+  position: relative; overflow: hidden;
+  border-top: 0.5px solid rgba(200,160,96,.2);
+  border-bottom: 0.5px solid rgba(200,160,96,.2);
+}
+
+.gift-teaser-lotus {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 400px;
+  opacity: .06; pointer-events: none;
+}
+
+.gift-teaser-inner {
+  position: relative; z-index: 1;
+  max-width: 560px; margin: 0 auto;
+}
+
+.gift-teaser .section-title {
+  font-size: 48px; margin-bottom: 16px;
+}
+
+.gift-teaser-text {
+  font-size: 14px; font-weight: 300;
+  color: var(--muted); line-height: 1.9;
+  margin-bottom: 36px;
+}
+
+.gift-btn {
+  display: inline-block;
+  font-size: 9.5px; font-weight: 400;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--ivoire); background: var(--brun);
+  padding: 14px 36px; text-decoration: none;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.gift-btn:hover { background: var(--brun-mid); }
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer {
+  background: var(--brun);
+  padding: 40px 48px;
+  display: flex; align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; color: var(--or-pale);
+  letter-spacing: .06em;
+}
+.footer-logo span {
+  font-style: italic; font-weight: 300;
+  font-size: 11px; color: rgba(200,160,96,.6);
+  display: block; letter-spacing: .2em;
+}
+
+.footer-copy {
+  font-size: 10px; font-weight: 200;
+  color: rgba(200,160,96,.4); letter-spacing: .1em;
+}
+
+/* ══════════════════════════════
+   ANIMATIONS
+══════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display:none; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 100px 28px 60px; }
+  .hero-right { padding: 60px 28px; min-height: 280px; }
+  .hero-title { font-size: 52px; }
+  .hero-lotus-deco { width: 200px; height: 200px; }
+  .about { grid-template-columns: 1fr; padding: 60px 28px; }
+  .about-divider-v { display:none; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .contact { grid-template-columns: 1fr; padding: 60px 28px; }
+  .prestations { padding: 60px 28px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    Charlène
+    <span>Massage & Bien-être</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#prestations">Prestations</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:0630945530" class="nav-cta">Réserver</a>
+</nav>
+
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-left">
+    <!-- Lotus fond gauche -->
+    <svg class="hero-lotus-bg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(0,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(45,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(90,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(135,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(180,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(225,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(270,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(315,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#e8c870" transform="rotate(22.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#e8c870" transform="rotate(67.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#e8c870" transform="rotate(112.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#e8c870" transform="rotate(157.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#e8c870" transform="rotate(202.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#e8c870" transform="rotate(247.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#e8c870" transform="rotate(292.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#e8c870" transform="rotate(337.5,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#f8e090" transform="rotate(0,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#f8e090" transform="rotate(60,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#f8e090" transform="rotate(120,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#f8e090" transform="rotate(180,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#f8e090" transform="rotate(240,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#f8e090" transform="rotate(300,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#fff8d0" transform="rotate(0,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#fff8d0" transform="rotate(72,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#fff8d0" transform="rotate(144,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#fff8d0" transform="rotate(216,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#fff8d0" transform="rotate(288,120,120)"/>
+      <circle cx="120" cy="120" r="12" fill="#e8a010"/>
+      <circle cx="120" cy="120" r="7" fill="#f5cc40"/>
+      <circle cx="120" cy="120" r="3.5" fill="#fffce0"/>
+    </svg>
+
+    <p class="hero-eyebrow">Massage & Bien-être · Grenoble</p>
+    <h1 class="hero-title">Charlène<em>Massage</em></h1>
+    <p class="hero-sub">Massage · Détente · Sérénité</p>
+    <div class="hero-divider"></div>
+    <p class="hero-slogan">Le temps d'un instant…<br>offrez-vous la pause que vous méritez.</p>
+    <a href="tel:0630945530" class="hero-btn">Prendre rendez-vous</a>
+  </div>
+
+  <div class="hero-right">
+    <!-- Grand lotus animé -->
+    <svg class="hero-lotus-deco" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+      <!-- Feuille nénuphar -->
+      <ellipse cx="148" cy="158" rx="52" ry="44" fill="#4a7040" opacity=".18" transform="rotate(-15,148,158)"/>
+      <!-- Couche 1 -->
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#c8a060" opacity=".7" transform="rotate(0,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#c8a060" opacity=".7" transform="rotate(45,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#c8a060" opacity=".7" transform="rotate(90,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#c8a060" opacity=".7" transform="rotate(135,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#c8a060" opacity=".7" transform="rotate(180,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#c8a060" opacity=".7" transform="rotate(225,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#c8a060" opacity=".7" transform="rotate(270,120,120)"/>
+      <ellipse cx="120" cy="22" rx="13" ry="32" fill="#c8a060" opacity=".7" transform="rotate(315,120,120)"/>
+      <!-- Couche 2 -->
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#d4a858" transform="rotate(22.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#d4a858" transform="rotate(67.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#d4a858" transform="rotate(112.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#d4a858" transform="rotate(157.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#d4a858" transform="rotate(202.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#d4a858" transform="rotate(247.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#d4a858" transform="rotate(292.5,120,120)"/>
+      <ellipse cx="120" cy="82" rx="11" ry="27" fill="#d4a858" transform="rotate(337.5,120,120)"/>
+      <!-- Couche 3 -->
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#e0be78" transform="rotate(0,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#e0be78" transform="rotate(60,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#e0be78" transform="rotate(120,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#e0be78" transform="rotate(180,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#e0be78" transform="rotate(240,120,120)"/>
+      <ellipse cx="120" cy="94" rx="9" ry="22" fill="#e0be78" transform="rotate(300,120,120)"/>
+      <!-- Couche 4 -->
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#f0d090" transform="rotate(0,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#f0d090" transform="rotate(72,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#f0d090" transform="rotate(144,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#f0d090" transform="rotate(216,120,120)"/>
+      <ellipse cx="120" cy="104" rx="7" ry="16" fill="#f0d090" transform="rotate(288,120,120)"/>
+      <!-- Pistil -->
+      <circle cx="120" cy="120" r="14" fill="#c07808"/>
+      <circle cx="120" cy="120" r="10" fill="#e8a010"/>
+      <circle cx="120" cy="108" r="2.5" fill="#f8d040"/>
+      <circle cx="129" cy="111" r="2.5" fill="#f8d040"/>
+      <circle cx="132" cy="120" r="2.5" fill="#f8d040"/>
+      <circle cx="129" cy="129" r="2.5" fill="#f8d040"/>
+      <circle cx="120" cy="132" r="2.5" fill="#f8d040"/>
+      <circle cx="111" cy="129" r="2.5" fill="#f8d040"/>
+      <circle cx="108" cy="120" r="2.5" fill="#f8d040"/>
+      <circle cx="111" cy="111" r="2.5" fill="#f8d040"/>
+      <circle cx="120" cy="120" r="5" fill="#fff8d8"/>
+    </svg>
+
+    <p class="hero-badge">Sam &amp; Dim · 9h – 18h</p>
+  </div>
+
+  <div class="scroll-hint">Découvrir</div>
+</section>
+
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about">
+  <div class="reveal">
+    <p class="section-eyebrow">À propos</p>
+    <h2 class="section-title">Un moment<br><em>rien que pour vous</em></h2>
+    <div class="about-text">
+      <p>Bienvenue dans un espace de calme et de sérénité. Je suis Charlène, praticienne en massage bien-être, et je vous propose de vous offrir une pause ressourçante le week-end.</p>
+      <p>Chaque séance est un voyage vers la détente profonde — corps et esprit réunis le temps d'un instant.</p>
+    </div>
+  </div>
+  <div class="about-divider-v"></div>
+  <div class="about-values reveal">
+    <div class="value-item">
+      <svg class="value-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" stroke="#c8a060" stroke-width=".8"/>
+        <path d="M16 6 C16 6, 10 12, 10 18 C10 21.3 12.7 24 16 24 C19.3 24 22 21.3 22 18 C22 12 16 6 16 6Z" fill="#c8a060" opacity=".25"/>
+        <path d="M16 10 C16 10, 12 14, 12 18 C12 20.2 13.8 22 16 22 C18.2 22 20 20.2 20 18 C20 14 16 10 16 10Z" stroke="#c8a060" stroke-width=".8" fill="none"/>
+        <circle cx="16" cy="18" r="2" fill="#c8a060" opacity=".6"/>
+      </svg>
+      <div>
+        <p class="value-title">Écoute & Douceur</p>
+        <p class="value-desc">Chaque séance est adaptée à vos besoins du moment, en toute bienveillance.</p>
+      </div>
+    </div>
+    <div class="value-item">
+      <svg class="value-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" stroke="#c8a060" stroke-width=".8"/>
+        <path d="M10 20 Q13 10 16 14 Q19 10 22 20" stroke="#c8a060" stroke-width=".8" stroke-linecap="round" fill="none"/>
+        <path d="M16 14 L16 22" stroke="#c8a060" stroke-width=".8" stroke-linecap="round"/>
+        <circle cx="16" cy="12" r="2" fill="#c8a060" opacity=".5"/>
+      </svg>
+      <div>
+        <p class="value-title">Détente Profonde</p>
+        <p class="value-desc">Des techniques douces pour relâcher les tensions et retrouver votre équilibre.</p>
+      </div>
+    </div>
+    <div class="value-item">
+      <svg class="value-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" stroke="#c8a060" stroke-width=".8"/>
+        <circle cx="16" cy="16" r="5" stroke="#c8a060" stroke-width=".8" fill="#c8a060" fill-opacity=".1"/>
+        <path d="M16 8 L16 11M16 21 L16 24M8 16 L11 16M21 16 L24 16" stroke="#c8a060" stroke-width=".8" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <p class="value-title">Bien-être Global</p>
+        <p class="value-desc">Corps, esprit et sérénité — une approche holistique du mieux-être.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ PRESTATIONS ══ -->
+<section class="prestations" id="prestations">
+  <!-- Lotus fond -->
+  <svg class="prestations-lotus-bg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(0,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(45,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(90,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(135,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(180,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(225,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(270,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#f0d090" transform="rotate(315,120,120)"/>
+    <circle cx="120" cy="120" r="12" fill="#e8a010"/>
+    <circle cx="120" cy="120" r="6" fill="#f5cc40"/>
+  </svg>
+
+  <div class="prestations-inner">
+    <p class="section-eyebrow reveal">Mes prestations</p>
+    <h2 class="section-title reveal">Ce que je vous offre</h2>
+
+    <div class="cards-grid">
+      <div class="prestation-card reveal">
+        <div class="prestation-num">01</div>
+        <div class="prestation-name">Massage Relaxant</div>
+        <div class="prestation-desc">Un massage doux et enveloppant pour libérer les tensions du quotidien et retrouver une relaxation complète.</div>
+        <div class="prestation-price">
+          <span class="price-val">35 €</span>
+          <span class="price-unit">/ 1 heure</span>
+        </div>
+      </div>
+      <div class="prestation-card reveal">
+        <div class="prestation-num">02</div>
+        <div class="prestation-name">Massage Bien-être</div>
+        <div class="prestation-desc">Une séance sur mesure qui combine différentes techniques pour un résultat adapté à vos besoins du moment.</div>
+        <div class="prestation-price">
+          <span class="price-val">35 €</span>
+          <span class="price-unit">/ 1 heure</span>
+        </div>
+      </div>
+      <div class="prestation-card reveal">
+        <div class="prestation-num">03</div>
+        <div class="prestation-name">Carte Cadeau</div>
+        <div class="prestation-desc">Offrez un moment de détente à un proche. La carte cadeau est disponible pour toutes les séances.</div>
+        <div class="prestation-price">
+          <span class="price-val">35 €</span>
+          <span class="price-unit">/ séance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CARTE CADEAU TEASER ══ -->
+<section class="gift-teaser">
+  <svg class="gift-teaser-lotus" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#8a5820" transform="rotate(0,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#8a5820" transform="rotate(45,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#8a5820" transform="rotate(90,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#8a5820" transform="rotate(135,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#8a5820" transform="rotate(180,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#8a5820" transform="rotate(225,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#8a5820" transform="rotate(270,120,120)"/>
+    <ellipse cx="120" cy="22" rx="13" ry="32" fill="#8a5820" transform="rotate(315,120,120)"/>
+    <circle cx="120" cy="120" r="10" fill="#c07808"/>
+  </svg>
+  <div class="gift-teaser-inner reveal">
+    <p class="section-eyebrow">Faire un cadeau</p>
+    <h2 class="section-title">Offrez <em>la détente</em></h2>
+    <p class="gift-teaser-text">Un cadeau original et précieux — une heure de bien-être absolu pour la personne que vous aimez. La carte cadeau Charlène Massage est la promesse d'un moment rien que pour soi.</p>
+    <a href="mailto:jerycharlene@gmail.com?subject=Commande%20carte%20cadeau%20massage&body=Bonjour%20Charlène%2C%0A%0AJe%20souhaite%20commander%20une%20carte%20cadeau%20massage%20(1h%20-%2035€).%0A%0AMerci%20!" class="gift-btn">Commander une carte cadeau</a>
+  </div>
+</section>
+
+
+<!-- ══ CONTACT ══ -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <p class="section-eyebrow">Horaires</p>
+    <h2 class="section-title">Quand<br><em>me retrouver</em></h2>
+    <div class="horaires-grid">
+      <div class="horaire-item">
+        <p class="horaire-day">Samedi</p>
+        <p class="horaire-time">9h – 18h</p>
+      </div>
+      <div class="horaire-item">
+        <p class="horaire-day">Dimanche</p>
+        <p class="horaire-time">9h – 18h</p>
+      </div>
+      <div class="horaire-item" style="grid-column:span 2; background: rgba(200,160,96,.05);">
+        <p class="horaire-day">Lun – Ven</p>
+        <p class="horaire-closed">Sur rendez-vous uniquement</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p class="section-eyebrow">Contact</p>
+    <h2 class="section-title">Prendre<br><em>rendez-vous</em></h2>
+    <div class="contact-info">
+      <div class="contact-row">
+        <div class="contact-icon-wrap">
+          <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
+            <path d="M5.5 1.5h3l.5 3-1.8.9a7 7 0 0 0 2.4 2.4l.9-1.8 3 .5v3A10 10 0 0 1 3.5 3.5z" stroke="#c8a060" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="contact-label">Téléphone</p>
+          <p class="contact-value"><a href="tel:0630945530" style="color:inherit;text-decoration:none;">06 30 94 55 30</a></p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon-wrap">
+          <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
+            <rect x="1.5" y="3" width="11" height="8" rx="1.2" stroke="#c8a060" stroke-width="1"/>
+            <path d="M1.5 4.5 7 8l5.5-3.5" stroke="#c8a060" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="contact-label">Email</p>
+          <p class="contact-value" style="font-size:14px;"><a href="/cdn-cgi/l/email-protection#0c66697e756f646d7e606962694c6b616d6560226f6361" style="color:inherit;text-decoration:none;"><span class="__cf_email__" data-cfemail="2d47485f544e454c5f414843486d4a404c4441034e4240">[email&#160;protected]</span></a></p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon-wrap">
+          <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
+            <path d="M7 2l1.2 2.5L11 5l-2 1.9.5 2.6L7 8.2 4.5 9.5 5 6.9 3 5l2.8-.5z" stroke="#c8a060" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="contact-label">Tarif</p>
+          <p class="contact-value">35 € · 1 heure</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">
+    Charlène
+    <span>Massage & Bien-être</span>
+  </div>
+  <p class="footer-copy">© 2025 Charlène Massage · Le temps d'un instant…</p>
+</footer>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Nav shadow on scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+    
